@@ -1,0 +1,8 @@
+{
+  "model": "deepseek/deepseek-flash",
+  "providers": {
+    "deepseek": {
+      "apiKey": "env:DEEPSEEK_API_KEY"
+    }
+  }
+}

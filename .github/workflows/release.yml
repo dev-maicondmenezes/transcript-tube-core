@@ -59,11 +59,7 @@ jobs:
           git push origin "${{ steps.version.outputs.tag }}"
           gh release create "${{ steps.version.outputs.tag }}" \
             --title "transcript-tube-core ${{ steps.version.outputs.version }}" \
-            --notes "Core library release.
-
-Go module: \`github.com/dev-maicondmenezes/transcript-tube-core v${{ steps.version.outputs.version }}\`
-
-Import path: \`github.com/dev-maicondmenezes/transcript-tube-core/core\`." \
+            --notes "Core library release. Go module: \`github.com/dev-maicondmenezes/transcript-tube-core v${{ steps.version.outputs.version }}\`. Import path: \`github.com/dev-maicondmenezes/transcript-tube-core/core\`." \
             --verify-tag
       - name: Nothing to publish
         if: steps.check.outputs.exists == 'true'

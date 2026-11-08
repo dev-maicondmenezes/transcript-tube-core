@@ -25,6 +25,6 @@ type Fetcher interface {
 // Sentinel errors of the chapters adapter. The orchestration layer treats any
 // error as "no chapters" and falls back to the video description.
 var (
-	ErrUnavailable = errors.New("chapters unavailable")
-	ErrNoChapters  = errors.New("no chapter markers")
+	ErrUnavailable = errors.New("capítulos indisponíveis")
+	ErrNoChapters  = errors.New("nenhum marcador de capítulo encontrado")
 )

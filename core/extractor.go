@@ -85,7 +85,7 @@ func (e *Extractor) Extract(ctx context.Context, videoID string, opts Options) (
 		return nil, err
 	}
 	if e == nil || e.Metadata == nil || e.Transcript == nil {
-		return nil, errors.New("extract: metadata and transcript providers are required")
+		return nil, errors.New("extração: provedores de metadados e transcrição são obrigatórios")
 	}
 
 	var (
@@ -120,7 +120,7 @@ func (e *Extractor) Extract(ctx context.Context, videoID string, opts Options) (
 	wg.Wait()
 
 	if err := ctx.Err(); err != nil {
-		return nil, fmt.Errorf("extract: %w", err)
+		return nil, fmt.Errorf("extração: %w", err)
 	}
 
 	if transcriptErr == nil && len(segments) == 0 {
@@ -130,7 +130,7 @@ func (e *Extractor) Extract(ctx context.Context, videoID string, opts Options) (
 	if metadataErr != nil {
 		metadataErr = wrapMetadataError(videoID, metadataErr)
 		if transcriptErr != nil {
-			return nil, fmt.Errorf("extract: %w", errors.Join(metadataErr, wrapTranscriptError(transcriptErr)))
+			return nil, fmt.Errorf("extração: %w", errors.Join(metadataErr, wrapTranscriptError(transcriptErr)))
 		}
 		return nil, metadataErr
 	}
@@ -159,12 +159,12 @@ func (e *Extractor) Extract(ctx context.Context, videoID string, opts Options) (
 func newDefaultExtractor() (*Extractor, error) {
 	apiKey := strings.TrimSpace(os.Getenv("YOUTUBE_API_KEY"))
 	if apiKey == "" {
-		return nil, fmt.Errorf("config: %w", ErrMissingAPIKey)
+		return nil, fmt.Errorf("configuração: %w", ErrMissingAPIKey)
 	}
 
 	metadataClient, err := metadata.New(apiKey)
 	if err != nil {
-		return nil, fmt.Errorf("metadata: %w", err)
+		return nil, fmt.Errorf("metadados: %w", err)
 	}
 
 	return NewExtractorWithChapters(
@@ -247,11 +247,11 @@ func videoDataFromMetadata(videoID string, video *metadata.Video, segments []Tra
 
 func wrapMetadataError(videoID string, err error) error {
 	if errors.Is(err, metadata.ErrNotFound) {
-		return fmt.Errorf("metadata: video %q: %w", videoID, errors.Join(ErrVideoNotFound, err))
+		return fmt.Errorf("metadados: vídeo %q: %w", videoID, errors.Join(ErrVideoNotFound, err))
 	}
-	return fmt.Errorf("metadata: video %q: %w", videoID, errors.Join(ErrMetadataUnavailable, err))
+	return fmt.Errorf("metadados: vídeo %q: %w", videoID, errors.Join(ErrMetadataUnavailable, err))
 }
 
 func wrapTranscriptError(err error) error {
-	return fmt.Errorf("transcript: %w", errors.Join(ErrTranscriptUnavailable, err))
+	return fmt.Errorf("transcrição: %w", errors.Join(ErrTranscriptUnavailable, err))
 }

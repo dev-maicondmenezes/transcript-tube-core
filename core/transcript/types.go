@@ -22,6 +22,6 @@ type Fetcher interface {
 // Sentinel errors of the transcript adapter. The orchestration layer maps them
 // to core.ErrTranscriptUnavailable.
 var (
-	ErrUnavailable = errors.New("transcript unavailable")
-	ErrNoSegments  = errors.New("no transcript segments")
+	ErrUnavailable = errors.New("transcrição indisponível")
+	ErrNoSegments  = errors.New("nenhum segmento de transcrição encontrado")
 )

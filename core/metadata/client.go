@@ -16,7 +16,7 @@ import (
 )
 
 // ErrNotFound indicates that the requested video does not exist.
-var ErrNotFound = errors.New("metadata: video not found")
+var ErrNotFound = errors.New("metadados: vídeo não encontrado")
 
 // Client is a YouTube Data API v3 metadata client.
 type Client struct {
@@ -46,7 +46,7 @@ func WithBaseURL(baseURL string) Option {
 // New creates a metadata client authenticated with apiKey.
 func New(apiKey string, opts ...Option) (*Client, error) {
 	if strings.TrimSpace(apiKey) == "" {
-		return nil, errors.New("metadata: API key is required")
+		return nil, errors.New("metadados: chave da API é obrigatória")
 	}
 
 	client := &Client{}
